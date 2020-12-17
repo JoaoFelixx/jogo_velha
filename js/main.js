@@ -1,178 +1,197 @@
 var game = [];
 var board = [];
-var quemJoga = 0; 
+var move = 0; 
 var verify;
 var playing = true;
 var dificultLevel = 1;
 var cpuMove = 1;
 var firstPlay = 1;
 var playerName = prompt('Nome de jogador');
+if (playerName == undefined || playerName == " " || playerName == true) {
+	playerName = 'Jogador';}
 
-function cpuJoga() {
+function IAmove() {
 	if (playing) {
-		var l,c;
+		let lines,columns;
 		if (dificultLevel == 1) {
 			do{
-				l = Math.round(Math.random()*2);
-				c = Math.round(Math.random()*2);
-			}while (game[l][c] != "");
-			 game[l][c]='O';
+				lines = Math.round(Math.random()*2);
+				columns = Math.round(Math.random()*2);
+			}
+			while (game[lines][columns] != "");
+			 game[lines][columns] = 'O';
 		}
 		else if (dificultLevel == 2){
 			// level 2
 		}
-		atualizaTabuleiro();
-		verify = verificaVitoria();
+		updateBoard();
+		verify = checkingTheVictory();
 		if (verify != "") {
-			if (verify == 'X') {
-				document.getElementById('quemVence').innerHTML = 'Jogador venceu';	
-			}else {
-				document.getElementById('quemVence').innerHTML = 'CPU venceu';
-			}
+			if (verify == 'X') 
+				document.getElementById('win').innerHTML = `${playerName} venceu`;	
+			else 
+				document.getElementById('win').innerHTML = 'IA venceu';
+			
 			playing = false;
 		}
-		firstPlay=0;
+		firstPlay = 0;
 	}
 }
 
 
-function verificaVitoria() {
-	var l,c;
-	// VERIFICANDO AS LINHAS
-	for (l = 0; l < 3; l++) {
-		if (game[l][0] == game[l][1] 
-		 && game[l][0] == game[l][2]){
-			return game[l][0];
+function checkingTheVictory() {
+	let lines,columns;
+	
+	for (lines = 0; lines < 3; lines++) {
+		if (game[lines][0] == game[lines][1] 
+		 && game[lines][0] == game[lines][2]){
+			return game[lines][0];
 		}
 	}
-	// VERIFICANDO AS COLUNAS
-	for (c = 0; c < 3; c++) {
-		if (game[0][c]==game[1][c] 
-		 && game[0][c]==game[2][c]){
-			return game[0][c];
+
+	for (columns = 0; columns < 3; columns++) {
+		if (game[0][columns] == game[1][columns] 
+		 && game[0][columns] == game[2][columns]){
+			return game[0][columns];
 		}
 	}
-	// VERIFICANDO AS DIAGONAIS
-	if (game[0][0]==game[1][1] 
-	 && game[0][0]==game[2][2]){
+	
+	if (game[0][0] == game[1][1] 
+	 && game[0][0] == game[2][2]){
 			return game[0][0];
 	}
-	if (game[0][2]==game[1][1] 
-	 && game[1][1]==game[2][0]){
+	if (game[0][2] == game[1][1] 
+	 && game[1][1] == game[2][0]){
 			return game[0][2];
 	}
 	return "";
 }
 
 
-function jogar(p) {
-	if (playing == true && firstPlay == 0) {
-		switch (p) {
-
-		// Posição 1
+function play(position) {
+	if (playing == true 
+	 && firstPlay == 0) {
+		
+		switch (position) {
+		
 			case 1:
-				if (game[0][0]=="") {
-					game[0][0]='X';
-					firstPlay = 1;
+				if (game[0][0] == "") {
+					game[0][0] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 2
+		
 			case 2:
-				if (game[0][1]=="") {
-					game[0][1]='X';
-					firstPlay = 1;
+				if (game[0][1] == "") {
+					game[0][1] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 3
+		
 			case 3:
-				if (game[0][2]=="") {
-					game[0][2]='X';
-					firstPlay = 1;
+				if (game[0][2] == "") {
+					game[0][2] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 4
+		
 			case 4:
-				if (game[1][0]=="") {
-					game[1][0]='X';
-					firstPlay = 1;
+				if (game[1][0] == "") {
+					game[1][0] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 5
+		
 			case 5:
-				if (game[1][1]=="") {
-					game[1][1]='X';
-					firstPlay = 1;
+				if (game[1][1] == "") {
+					game[1][1] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 6
+
 			case 6:
-				if (game[1][2]=="") {
-					game[1][2]='X';
-					firstPlay = 1;
+				if (game[1][2] == "") {
+					game[1][2] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 7
+		
 			case 7:
-				if (game[2][0]=="") {
-					game[2][0]='X';
-					firstPlay = 1;
+				if (game[2][0] == "") {
+					game[2][0] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 8
+		
 			case 8:
-				if (game[2][1]=="") {
-					game[2][1]='X';
-					firstPlay = 1;
+				if (game[2][1] == "") {
+					game[2][1] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Posição 9
+		
 			case 9:
-				if (game[2][2]=="") {
-					game[2][2]='X';
-					firstPlay = 1;
+				if (game[2][2] == "") {
+					game[2][2] = 'X';
+					chekingTheFields();
 				}
 			break;
-		// Caso de erro no desenvolvimento
+		
 			default:
-				console.log('Erro descoberto');
+				alert('Esse campo não está vazio');
 			break;
 		}
 		if (firstPlay == 1) {
-			atualizaTabuleiro();
-			verify = verificaVitoria();
+			updateBoard();
+			verify = checkingTheVictory();
+			
 			if (verify != "") {
-				if (verify == 'X') {
-					document.getElementById('quemVence').innerHTML = 'Jogador venceu';	
-				}else {
-					document.getElementById('quemVence').innerHTML = 'CPU venceu';
-				}
+				
+				if (verify == 'X') 
+					document.getElementById('win').innerHTML = `${playerName} venceu`;	
+				else 
+					document.getElementById('win').innerHTML = 'IA venceu';
+				
 				playing = false;
 			}
-			cpuJoga(); // --- CONTINUAR DAQUI	
+			IAmove(); 
 		}
 	}
 }
 
-function atualizaTabuleiro() {
-	for (var l = 0; l < 3; l++) {
-		for (var c = 0; c < 3;  c++) {
-			if (game[l][c]=='X') {
-				board[l][c].innerHTML = 'X';
-				board[l][c].style.cursor = 'default';
+function updateBoard() {
+	for (let lines = 0; lines < 3; lines++) {
+		for (let columns = 0; columns < 3;  columns++) {
+			if (game[lines][columns] == 'X') {
+				board[lines][columns].innerHTML = 'X';
+				board[lines][columns].style.cursor = 'default';
 			}
-			else if (game[l][c]=='O') {
-				board[l][c].innerHTML = 'O';
-				board[l][c].style.cursor = 'default';
+			else if (game[lines][columns] == 'O') {
+				board[lines][columns].innerHTML = 'O';
+				board[lines][columns].style.cursor = 'default';
 			}
 			else {
-				board[l][c].innerHTML = ' ';
-				board[l][c].style.cursor = 'pointer';
+				board[lines][columns].innerHTML = ' ';
+				board[lines][columns].style.cursor = 'pointer';
 			}
 		}
 	}
 }
 
-
+function chekingTheFields() {
+	if (!game[0][0] == undefined
+	 || !game[0][1] == undefined
+	 ||	!game[0][2] == undefined
+	 ||	!game[1][0] == undefined
+	 ||	!game[1][1] == undefined
+	 ||	!game[1][2] == undefined
+	 ||	!game[2][0] == undefined
+     ||	!game[2][1] == undefined
+	 ||	!game[2][2] == undefined) {
+		document.getElementById('win').innerHTML = 'Empate !';		
+	}
+	else firstPlay = 1;
+}
 
 function start() {
 	
@@ -188,19 +207,18 @@ function start() {
 		[document.getElementById('p4'),document.getElementById('p5'),document.getElementById('p6')], 
 		[document.getElementById('p7'),document.getElementById('p8'),document.getElementById('p9')]
 	];
-	atualizaTabuleiro();
+	updateBoard();
 	
 	if (firstPlay == 1) {
 		firstPlay = 0;
-		quemJoga = 0;
+		move = 0;
 
 	}
 	else {
 		firstPlay = 1;
-		quemJoga = firstPlay;
-		cpuJoga();
+		move = firstPlay;
+		IAmove();
 	}	
 }
-
 
 window.addEventListener('load',start);
